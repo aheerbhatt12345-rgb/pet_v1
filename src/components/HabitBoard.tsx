@@ -41,12 +41,12 @@ export default function HabitBoard({ habits, onAdd, onToggle, onDelete }: Props)
   };
 
   return (
-    <div id="habit-board" className="bg-[#14141C] p-6 rounded-2xl border border-slate-800">
+    <div id="habit-board" className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
-           <span className="w-2 h-2 bg-emerald-400 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.5)]"></span> Vitality Inputs
+           <Activity className="w-3 h-3 text-emerald-400" /> Daily Habits
         </h2>
-        <span className="text-[10px] uppercase tracking-widest text-slate-600 font-mono">Neural Sync</span>
+        <span className="text-[10px] uppercase tracking-widest text-slate-300 font-bold">Resonance</span>
       </div>
 
       <form onSubmit={handleSubmit} className="mb-6">
@@ -55,14 +55,14 @@ export default function HabitBoard({ habits, onAdd, onToggle, onDelete }: Props)
             type="text"
             value={newText}
             onChange={(e) => setNewText(e.target.value)}
-            placeholder="Add vitality task..."
-            className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-300 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 transition-all font-mono"
+            placeholder="Log your progress..."
+            className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-100/30 focus:border-blue-200 transition-all"
           />
           <button
             type="submit"
-            className="absolute right-2 top-1.5 p-1 text-cyan-400 hover:text-cyan-300 transition-colors"
+            className="absolute right-2 top-1.5 p-1.5 text-blue-400 hover:text-blue-500 transition-colors"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-5 h-5" />
           </button>
         </div>
       </form>
@@ -73,22 +73,24 @@ export default function HabitBoard({ habits, onAdd, onToggle, onDelete }: Props)
             <motion.div
               layout
               key={habit.id}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               onClick={() => onToggle(habit.id)}
-              className={`group flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
+              className={`group flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
                 habit.completed 
-                  ? 'bg-slate-800/50 border-emerald-500/30' 
-                  : 'bg-slate-900 border-slate-700/50 hover:border-slate-600'
+                  ? 'bg-emerald-50 border-emerald-100 opacity-60' 
+                  : 'bg-white border-slate-100 hover:border-blue-200 hover:shadow-sm'
               }`}
             >
-              <div className="flex items-center gap-3">
-                 <div className={`w-3 h-3 rounded-sm border transition-all ${
-                   habit.completed ? 'bg-emerald-400 border-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]' : 'border-slate-600'
-                 }`} />
-                 <span className={`text-[11px] font-medium transition-all ${
-                   habit.completed ? 'text-slate-400' : 'text-slate-300'
+              <div className="flex items-center gap-4">
+                 <div className={`w-5 h-5 rounded-lg border-2 flex items-center justify-center transition-all ${
+                   habit.completed ? 'bg-emerald-400 border-emerald-400 text-white' : 'border-slate-200 text-transparent'
+                 }`}>
+                   <Check className="w-3 h-3" strokeWidth={4} />
+                 </div>
+                 <span className={`text-sm font-bold transition-all ${
+                   habit.completed ? 'text-slate-400 line-through' : 'text-slate-600'
                  }`}>
                    {habit.text}
                  </span>
@@ -96,9 +98,9 @@ export default function HabitBoard({ habits, onAdd, onToggle, onDelete }: Props)
 
               <button
                 onClick={(e) => { e.stopPropagation(); onDelete(habit.id); }}
-                className="opacity-0 group-hover:opacity-100 p-1 text-slate-600 hover:text-pink-400 transition-all"
+                className="opacity-0 group-hover:opacity-100 p-1.5 text-slate-300 hover:text-rose-400 transition-all rounded-lg hover:bg-rose-50"
               >
-                <Trash2 className="w-3.5 h-3.5" />
+                <Trash2 className="w-4 h-4" />
               </button>
             </motion.div>
           ))}

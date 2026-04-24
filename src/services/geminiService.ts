@@ -42,10 +42,10 @@ export async function getPetResponse(
     ${recentHabits.map(h => `- ${h.text} (${h.completed ? 'Completed' : 'Missed'})`).join('\n')}
 
     Rules:
-    - Keep responses concise and personality-driven.
+    - Focus on high emotional value: Every word should count.
+    - Keep responses EXTREMELY concise (Maximum 15-20 words).
     - If user shows good habits, be encouraging and feel 'stronger'.
     - If user misses habits, be slightly concerned or lethargic, but supportive.
-    - Suggest ways to improve both your lives.
     - Format response as JSON.
   `;
 

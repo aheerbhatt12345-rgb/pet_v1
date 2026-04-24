@@ -60,17 +60,17 @@ export default function AuraPet({ pet, onClick }: Props) {
       }}
       onClick={onClick}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-emerald-300 to-blue-500 rounded-full opacity-40 mix-blend-screen blur-xl animate-pulse" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-indigo-50 to-white rounded-full opacity-40 mix-blend-multiply blur-2xl animate-pulse" />
       
-      <svg viewBox="0 0 100 100" className="w-full h-full relative z-10">
+      <svg viewBox="0 0 100 100" className="w-full h-full relative z-10 drop-shadow-sm">
         <motion.path
           d={shapePath}
           fill={color}
-          className="opacity-90"
+          className="opacity-95"
           initial={false}
           animate={{ d: shapePath }}
           transition={{ duration: 0.8, type: 'spring' }}
-          style={{ filter: `drop-shadow(0 0 10px ${color})` }}
+          style={{ filter: `drop-shadow(0 4px 6px ${color}33)` }}
         />
         
         {/* Face */}
@@ -109,8 +109,8 @@ export default function AuraPet({ pet, onClick }: Props) {
       
       {/* Name Label */}
       <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
-        <span className="px-3 py-1 bg-slate-900 border border-slate-700 rounded text-[9px] font-mono font-bold text-cyan-400 tracking-widest uppercase">
-          {pet.name} // GEN_{pet.growthLevel}
+        <span className="px-3 py-1 bg-white shadow-sm border border-slate-100 rounded-full text-[10px] font-bold text-slate-400 tracking-widest uppercase">
+          {pet.name} · GEN {pet.growthLevel}
         </span>
       </div>
     </motion.div>
