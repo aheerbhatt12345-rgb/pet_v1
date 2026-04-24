@@ -6,7 +6,18 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { PetState, InteractionMessage, Habit } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let genAI: GoogleGenAI | null = null;
+
+function getAI() {
+  if (!genAI) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY environment variable is not defined. Please add it to your .env file.");
+    }
+    genAI = new GoogleGenAI({ apiKey });
+  }
+  return genAI;
+}
 
 export async function getPetResponse(
   pet: PetState,
@@ -15,6 +26,7 @@ export async function getPetResponse(
   recentHabits: Habit[]
 ) {
   const model = "gemini-3-flash-preview";
+  const ai = getAI();
   
   const systemInstruction = `
     You are ${pet.name}, a digital pet companion in 2026. 
@@ -84,6 +96,7 @@ export async function getPetResponse(
 
 export async function evolvePet(pet: PetState, habits: Habit[]) {
   const model = "gemini-3-flash-preview";
+  const ai = getAI();
   const systemInstruction = `
     Analyze the current pet state and user habit history for evolution.
     Pet: ${JSON.stringify(pet)}

@@ -29,13 +29,29 @@ const INITIAL_PET: PetState = {
 
 export default function App() {
   const [pet, setPet] = useState<PetState>(() => {
-    const saved = localStorage.getItem('aura-pet-state');
-    return saved ? JSON.parse(saved) : INITIAL_PET;
+    try {
+      const saved = localStorage.getItem('aura-pet-state');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') return parsed;
+      }
+    } catch (e) {
+      console.error("Failed to load pet state", e);
+    }
+    return INITIAL_PET;
   });
 
   const [habits, setHabits] = useState<Habit[]>(() => {
-    const saved = localStorage.getItem('aura-habits');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('aura-habits');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error("Failed to load habits", e);
+    }
+    return [];
   });
 
   const [messages, setMessages] = useState<InteractionMessage[]>([]);
